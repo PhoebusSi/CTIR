@@ -8,7 +8,7 @@ This repository contains code modified from [here for CapsNet+CTIR](https://gith
 ```bash
 cd capsnet-CTIR
 ```
-
+![image](https://github.com/PhoebusSi/CTIR/blob/main/hyperparameter4capsnet%2BCTIR.jpg)
 ## Train & Test for SNIP dataset in the ZSID setting
 ```bash
 python main.py SNIP ZSID
