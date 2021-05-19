@@ -29,6 +29,7 @@ python main.py CLINC GZSID
 ```bash
 cd zerodnn-CTIR
 ```
+![image](https://github.com/PhoebusSi/CTIR/blob/main/hyperparameter4zeroshotdnn%2BCTIR.jpg)
 ## Train & Test for SNIP dataset in the ZSID setting
 ```bash
 python zerodnn_main.py SNIP ZSID
