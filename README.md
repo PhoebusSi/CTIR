@@ -28,18 +28,18 @@ cd zerodnn-CTIR
 ```
 ## Train & Test for SNIP dataset in the ZSID setting
 ```bash
-python main.py SNIP ZSID
+python zerodnn_main.py SNIP ZSID
 ```
 ## Train & Test for SNIP dataset in the GZSID setting
 ```bash
-python main.py SNIP GZSID
+python zerodnn_main.py SNIP GZSID
 ```
 ## Train & Test for CLINC dataset in the ZSID setting
 ```bash
-python main.py CLINC ZSID
+python zerodnn_main.py CLINC ZSID
 ```
 ## Train & Test for CLINC dataset in the GZSID setting
 ```bash
-python main.py CLINC GZSID
+python zerodnn_main.py CLINC GZSID
 ```
 # Train & Test (+LOF+CTIR in the GZSID setting)
