@@ -12,6 +12,7 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
         hidden_dim: hidden dimension
         input_dim (D_W): pre-trained using skip-gram model (300)     
 """
+
 class CapsuleNetwork(nn.Module):
     def __init__(self, config, pretrained_embedding = None):
         super(CapsuleNetwork, self).__init__()
@@ -96,6 +97,7 @@ class CapsuleNetwork(nn.Module):
         self.logits = self.get_logits()
         self.votes = votes_reshaped
         return features
+
     def get_logits(self):
         logits = torch.norm(self.activation, dim=-1)
         return logits
@@ -145,6 +147,7 @@ class CapsuleNetwork(nn.Module):
         self.ws1.weight.requires_grad_(True)
         self.ws2.weight.requires_grad_(True)
         self.capsule_weights.requires_grad_(True)
+
     def MT_Loss(self, lambda_, labels, raw_logits, seen_n, SUID_labels, margin=0.4,margin_SUID=0.49 ,downweight=0.5):
         """
         Multi-task Loss
@@ -177,6 +180,7 @@ class CapsuleNetwork(nn.Module):
         positive_cost = labels * (logits < margin).float() * ((logits - margin) ** 2)
         negative_cost = (1 - labels) * (logits > -margin).float() * ((logits + margin) ** 2)
         return torch.cat([0.5 * positive_cost + downweight * 0.5 * negative_cost ,lambda_*(0.5 * new_positive_cost + downweight * 0.5 * new_negative_cost)],1)
+
     def compute_sim_with_SS(self, sc_intents, uc_intents):
         """
         get unseen and seen categories similarity by SIMILARITY SCORER(Cosine Distances)
@@ -191,6 +195,7 @@ class CapsuleNetwork(nn.Module):
         sim = sim.view(len(sc_intents),len(uc_intents))
         #sim = self.softmax(sim)
         return sim.float() 
+
     def compute_sim_with_lable(self,  sc_intents, uc_intents, embedding):
         """
         get unseen and seen categories similarity by the embeddings of labels
@@ -205,6 +210,7 @@ class CapsuleNetwork(nn.Module):
         sim = sim.view(len(sc_intents),len(uc_intents))
         sim = self.softmax(sim)
         return sim
+
     def cos_dis(self, I1,  I2):
         c = 1e-6 # prevent divid 0
         InnerPro = torch.sum(I1*I2,1,keepdim=True) # N,1,H,W
@@ -216,8 +222,6 @@ class CapsuleNetwork(nn.Module):
         divisor = divisor + (mask.float())*c # prevent divids 0
         cosA = torch.sum(InnerPro/divisor,1) # N,H,W
         return cosA
-    
-    
     
     def loss(self,alpha, label, seen_n, SUID_label):
         

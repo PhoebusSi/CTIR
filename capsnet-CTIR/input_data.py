@@ -25,9 +25,7 @@ def process_label(intents, w2v,class_id_startpoint=0):
     class_id = class_id_startpoint
     for line in intents:
         # check whether all the words in w2v dict
-        print(line)
         line=line[0]
-        print(line)
         label = line.split(' ')
         for w in label:
             if not w in w2v.vocab:

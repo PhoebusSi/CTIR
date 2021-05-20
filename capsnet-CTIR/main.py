@@ -13,6 +13,7 @@ import tool
 import math
 import os
 import sys
+
 def setup_seed(seed):
    torch.manual_seed(seed)
    os.environ['PYTHONHASHSEED'] = str(seed)
@@ -67,7 +68,6 @@ def setting(data):
     config['sim_scale'] = 4 #sim scale
     config['nlayers'] = 2 # default for bilstm
     config['ckpt_dir'] = './saved_models/' #check point dir
-
     return config
 
 def get_sim(data):
@@ -78,6 +78,7 @@ def get_sim(data):
     u = normalize(data['uc_vec'])
     sim = tool.compute_label_sim(u, s, config['sim_scale'])
     return sim
+
 def compute_sim_with_SS( sc_intents, uc_intents):
     """
     get unseen and seen categories similarity by SIMILARITY SCORER(Cosine Distances)
@@ -211,13 +212,14 @@ def sort_batch(batch_x, batch_y, batch_len, batch_ind):
            batch_len_new, torch.from_numpy(batch_ind_new)
 
 if __name__ == "__main__":
-    #choosedataset = 'SNIP'
-    #choosedataset = 'CLINC'
-    choosedataset = sys.argv[1]
-    if choosedataset not in ['SNIP', 'CLINC']:
+    #dataset = 'SNIP'
+    #dataset = 'CLINC'
+    dataset = sys.argv[1]
+    if dataset not in ['SNIP', 'CLINC']:
         print('the input argv[1] is', sys.argv[1])
         print('argv[1] have to be selected in [SNIP, CLINC].')
         assert 0 == 1
+
     # ================================== data setting =============================
     dataSetting={}
     # 0: ZSID; 1: GZSID
@@ -230,19 +232,20 @@ if __name__ == "__main__":
 
     dataSetting['training_prob']=0.7
     dataSetting['test_intrain_prob']=0.3
-    dataSetting['dataset']=choosedataset
+    dataSetting['dataset']=dataset
 
-    if choosedataset == 'CLINC':
+    if dataset == 'CLINC':
         dataSetting['data_prefix']='../data/nlu_data/'
         dataSetting['dataset_name']='dataCLINC150.txt'
         dataSetting['add_dataset_name']='clinc_unseen_label_name.txt'
         dataSetting['wordvec_name']='60000_glove.840B.300d.txt'
-    if choosedataset == 'SNIP':
+    if dataset == 'SNIP':
         dataSetting['data_prefix']='../data/nlu_data/'
         dataSetting['dataset_name']='dataSNIP.txt'
         dataSetting['add_dataset_name']='snips_unseen_label_name.txt'
         dataSetting['wordvec_name']='wiki.en.vec'
         # load data
+
     data = input_data.read_datasets_gen(dataSetting)
     x_tr = data['x_tr']
     y_tr = data['y_tr']
@@ -256,9 +259,9 @@ if __name__ == "__main__":
     u_len = data['u_len']
     # load settings
     config = setting(data)
-    if choosedataset == 'CLINC':
+    if dataset == 'CLINC':
         config['learning_rate'] = 0.001
-    elif choosedataset == 'SNIP':
+    elif dataset == 'SNIP':
         config['learning_rate'] = 0.0001
 
     lambda_ = config['lambda_']
@@ -278,12 +281,13 @@ if __name__ == "__main__":
             os.mkdir(config['ckpt_dir'])
 
     best_acc = 0
-    if choosedataset == 'SNIP':
+    if dataset == 'SNIP':
         seen_n = 5
         unseen_n = 2 
-    elif choosedataset == 'CLINC':
+    elif dataset == 'CLINC':
         seen_n = 50
         unseen_n = 10 
+
     def collectSamples4classes(y_id, features_tensor):
         """
         Collect samples in different categories( for SIMILARITY SCORER)

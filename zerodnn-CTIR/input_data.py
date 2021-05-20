@@ -137,6 +137,7 @@ def label_emb(y_tr, w2v):
         y_tr_emb.append(np.array(y_tr_tmp))
   
     return y_tr_emb
+
 def read_datasets_gen(dataSetting):
     
     data_path = dataSetting['data_prefix'] + dataSetting['dataset_name']

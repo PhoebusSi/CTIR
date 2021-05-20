@@ -25,10 +25,10 @@ def setup_seed(seed):
 
 seed = 2021
 setup_seed(seed)
-#choosedataset = 'CLINC'
-#choosedataset = 'SNIP'
-choosedataset = sys.argv[1]
-if choosedataset not in ['SNIP', 'CLINC']:
+#dataset = 'CLINC'
+#dataset = 'SNIP'
+dataset = sys.argv[1]
+if dataset not in ['SNIP', 'CLINC']:
     print('the input argv[1] is', sys.argv[1])
     print('argv[1] have to be selected in [SNIP, CLINC].')
     assert 0 == 1
@@ -48,14 +48,14 @@ else:
 
 dataSetting['training_prob'] = 0.7
 dataSetting['test_intrain_prob'] = 0.3
-dataSetting['dataset'] = choosedataset
+dataSetting['dataset'] = dataset
 
-if choosedataset == 'CLINC':
+if dataset == 'CLINC':
     dataSetting['data_prefix'] = '../data/nlu_data/'
     dataSetting['dataset_name'] = 'dataCLINC150.txt'
     dataSetting['add_dataset_name'] = 'clinc_unseen_label_name.txt'
     dataSetting['wordvec_name'] = '60000_glove.840B.300d.txt'
-if choosedataset == 'SNIP':
+if dataset == 'SNIP':
     dataSetting['data_prefix'] = '../data/nlu_data/'
     dataSetting['dataset_name'] = 'dataSNIP.txt'
     dataSetting['add_dataset_name'] = 'snips_unseen_label_name.txt'
@@ -90,9 +90,9 @@ test_sample_num, sen = data['x_te'].shape
 config['sample_num'] = sample_num #sample number of training data
 config['test_sample_num'] = test_sample_num 
 config['batch_size'] = 128 
-if choosedataset == 'SNIP':
+if dataset == 'SNIP':
     config['learning_rate'] = 0.01
-if choosedataset == 'CLINC':
+if dataset == 'CLINC':
     config['learning_rate'] = 0.001
 #0.01 for SNIP; 0.001 for CLINC
 config['seen_class'] = data['seen_class']
@@ -103,7 +103,7 @@ config['u_cnum'] = u_cnum #unseen class num
 config['st_len'] = max_time
 config['num_epochs'] = 50 
 config['model_name'] = 'ZERO-DNN'
-config['dataset'] = choosedataset
+config['dataset'] = dataset
 config['report'] = True
 config['dropout'] = 0.5
 config['alpha'] = 0.05
@@ -167,10 +167,10 @@ overall_test_time = 0.0
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.01)
 filename=config['ckpt_dir']+'mode'+str(config['test_mode'])+'_'+\
         config['dataset']+'_'+config['model_name']+'_'+config['experiment_time']+'.pkl'
-if choosedataset == 'SNIP':
+if dataset == 'SNIP':
     seen_n = 5
     unseen_n = 2
-elif choosedataset == 'CLINC':
+elif dataset == 'CLINC':
     seen_n = 50
     unseen_n = 10
   
