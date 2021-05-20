@@ -3,7 +3,11 @@ Here is the implementation of our IJCAI-2021 [Learning Class-Transductive Intent
 ![image](https://github.com/PhoebusSi/CTIR/blob/main/model.jpg)
 
 This repository contains code modified from [here for CapsNet+CTIR](https://github.com/nhhoang96/ZeroShotCapsule-PyTorch-), [here for ZSDNN+CTIR](https://github.com/xuandif-cmu/Zero-shot-DNN) and [here for +LOF+CTIR](https://github.com/thuiar/DeepUnkID), many thanks!
-
+# Download the Glove embedding file
+```bash
+cd data/nlu_data
+```
+You can download the Glove embedding file we used from [here](https://drive.google.com/file/d/1Qqy_HnymjakddEUgWxoYQm74VKLWeOON/view?usp=sharing). 
 # Train & Test (CapsNet+CTIR)
 ```bash
 cd capsnet-CTIR
