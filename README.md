@@ -55,3 +55,14 @@ python zerodnn_main.py CLINC GZSID
 ```
 # Train & Test (+LOF+CTIR in the GZSID setting)
 The main idea of two-stage method for GZSID is to ﬁrst determine whether an utterance belongs to unseen intents (i.e., *Y_seen* ), and then classify it into a speciﬁc intent class. This method bypasses the need to classify an input sentence among all the seen and unseen intents, thereby alleviating the domain shift problem. To verify the performance of integrating CTIR into the two-stage method, we design a new two-stage pipeline (`+LOF+CTIR` ). In Phase 1, a test utterance is classiﬁed into one of the classes from *Y_seen ∪ { y_unseen }* using the density-based algorithm LOF(LMCL) (refer [here](https://github.com/thuiar/DeepUnkID)). In Phase2, we perform ZSID for the utterances that have been classiﬁed into *y_unseen* , using the CTIR methods such as `CapsNet+CTIR`, `ZSDNN+CTIR`.
+
+## Reference
+If you found this code is useful, please cite the following paper:
+```
+@article{si2020learning,
+  title={Learning Disentangled Intent Representations for Zero-shot Intent Detection},
+  author={Si, Qingyi and Liu, Yuanxin and Fu, Peng and Li, Jiangnan and Lin, Zheng and Wang, Weiping},
+  journal={arXiv preprint arXiv:2012.01721},
+  year={2020}
+}
+```
