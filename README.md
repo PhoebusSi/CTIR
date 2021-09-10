@@ -1,5 +1,5 @@
 # CTIR (Learning Class-Transductive Intent Representations for Zero-shot Intent Detection)
-Here is the implementation of our IJCAI-2021 [Learning Class-Transductive Intent Representations for Zero-shot Intent Detection](https://arxiv.org/pdf/2012.01721.pdf).  
+Here is the implementation of our IJCAI-2021 [Learning Class-Transductive Intent Representations for Zero-shot Intent Detection](https://www.ijcai.org/proceedings/2021/0540.pdf).  
 
 The Appendix mentioned in this paper are shown in [Appendix.pdf](https://github.com/PhoebusSi/CTIR/blob/master/Appendix.pdf)
 
